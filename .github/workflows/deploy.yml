@@ -1,0 +1,19 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull latest code and restart app
+        run: |
+          cd ~/aws-cicd
+          git pull origin main
+          cd backend
+          npm install
+          pm2 restart aws-cicd-app
