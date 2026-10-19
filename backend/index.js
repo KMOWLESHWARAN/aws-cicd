@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res) => {
-    res.send('AWS CI/CD Setup - Dev Branch Code!');
+    res.send('AWS CI/CD Setup - Main Branch!');
 });
 
 app.listen(3000, () => {
