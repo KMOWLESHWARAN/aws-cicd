@@ -7,13 +7,16 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Pull latest code and restart app
-        run: |
-          cd ~/aws-cicd
-          git pull origin main
-          cd backend
-          npm install
-          pm2 restart aws-cicd-app
+      - name: Deploy code to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd ~/aws-cicd/backend
+            git pull origin main
+            npm install
+            pm2 restart aws-cicd-app
